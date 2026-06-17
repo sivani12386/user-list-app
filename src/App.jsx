@@ -1,29 +1,24 @@
-import { useEffect, useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Users from "./pages/Users";
 
 function App() {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    async function getUsers() {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/users"
-      );
-
-      const data = await response.json();
-
-      setUsers(data);
-    }
-
-    getUsers();
-  }, []);
-
   return (
     <div>
-      <h1>User List</h1>
+      <nav>
+        <Link to="/">Home</Link>
+        {" | "}
+        <Link to="/about">About</Link>
+        {" | "}
+        <Link to="/users">Users</Link>
+      </nav>
 
-      {users.map((user) => (
-        <h2 key={user.id}>{user.name}</h2>
-      ))}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/users" element={<Users />} />
+      </Routes>
     </div>
   );
 }
